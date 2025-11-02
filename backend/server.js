@@ -7,12 +7,9 @@ import { db, statements } from "./db.js";
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(cors({ origin: true })); // permite peticiones desde tu React
+app.use(cors({ origin: true }));
 app.use(express.json());
 
-// ---- Rutas ----
-
-// Listar
 app.get("/tasks", (req, res) => {
   const rows = statements.list.all();
   res.json(rows.map(r => ({ 
@@ -20,7 +17,6 @@ app.get("/tasks", (req, res) => {
   })));
 });
 
-// Crear
 app.post("/tasks", (req, res) => {
   const text = (req.body?.text || "").trim();
   if (!text) return res.status(400).json({ error: "Text required" });
@@ -32,7 +28,6 @@ app.post("/tasks", (req, res) => {
   res.status(201).json({ id, text, completed: false, createdAt });
 });
 
-// Editar texto
 app.patch("/tasks/:id", (req, res) => {
   const { id } = req.params;
   const text = (req.body?.text || "").trim();
@@ -46,7 +41,6 @@ app.patch("/tasks/:id", (req, res) => {
   res.json({ id, text, completed: !!existing.completed, createdAt: existing.created_at });
 });
 
-// Toggle completado
 app.post("/tasks/:id/toggle", (req, res) => {
   const { id } = req.params;
   const row = statements.get.get(id);
@@ -57,7 +51,6 @@ app.post("/tasks/:id/toggle", (req, res) => {
   res.json({ id, text: row.text, completed: !!next, createdAt: row.created_at });
 });
 
-// Eliminar
 app.delete("/tasks/:id", (req, res) => {
   const { id } = req.params;
   const info = statements.delete.run(id);
