@@ -1,9 +1,8 @@
-// src/components/ListaTareas.js
 import React, { useState } from "react";
 
 function TareaItem({ tarea, onDelete, onEdit, onToggle }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [edited, setEdited] = useState(tarea.text); // <-- API usa "text"
+  const [edited, setEdited] = useState(tarea.text);
 
   const save = () => {
     const v = edited.trim();
@@ -31,7 +30,7 @@ function TareaItem({ tarea, onDelete, onEdit, onToggle }) {
         ) : (
           <>
             <div className={tarea.completed ? "completada" : ""}>
-              {tarea.text /* <-- ahora se ve el nombre */}
+              {tarea.text}
             </div>
             <div className="meta small">
               Creada: {new Date(tarea.createdAt).toLocaleString()}
