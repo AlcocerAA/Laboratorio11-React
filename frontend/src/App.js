@@ -1,4 +1,3 @@
-// src/App.js
 import { useEffect, useMemo, useState } from "react";
 import { fetchTasks, createTask, updateTaskText, toggleTask, deleteTask } from "./api";
 import TareaForm from "./components/TareaForm";
