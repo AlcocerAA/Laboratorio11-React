@@ -1,0 +1,224 @@
+/* ======== TEMA OSCURO MODERNO + ANIMACIÓN RGB SUAVE ======== */
+:root {
+  --bg: #05070b;
+  --card: rgba(20, 24, 33, 0.85);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --text: #f5f6fa;
+  --muted: #9ca3af;
+  --accent: #00eaff;
+  --accent-glow: #00eaff66;
+  --danger: #ff4d4d;
+  --shadow: rgba(0, 0, 0, 0.5);
+}
+
+/* Reset y base */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
+body {
+  background: radial-gradient(circle at 20% 10%, #0b1321 0%, #05070b 90%);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* APP */
+.app {
+  max-width: 860px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+/* Encabezado */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00eaff, #a855f7, #00eaff);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 5s ease infinite;
+  background-size: 200%;
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+p.muted { color: var(--muted); margin-top: 5px; }
+
+/* ===== Tarjetas (Glass + RGB border) ===== */
+.card {
+  position: relative;
+  background: var(--card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 25px var(--shadow);
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.2px;
+  background: linear-gradient(90deg, #ff007f, #00eaff, #a855f7, #00eaff, #ff007f);
+  background-size: 400%;
+  animation: rgbFlow 12s linear infinite;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+@keyframes rgbFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== Formulario ===== */
+.tarea-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.tarea-form input[type="text"] {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #1f2937;
+  background: rgba(10, 14, 22, 0.8);
+  color: var(--text);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+.tarea-form input[type="text"]:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+.tarea-form button {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.tarea-form button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+.error { color: var(--danger); margin-top: 6px; }
+
+/* ===== Lista ===== */
+.lista-tareas { list-style: none; margin: 0; padding: 0; }
+.lista-tareas li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.02);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  transition: background-color 0.2s ease;
+}
+.lista-tareas li:hover {
+  background: rgba(255,255,255,0.06);
+}
+.tarea-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.completada { text-decoration: line-through; color: #6b7280; }
+.small { font-size: 0.85rem; color: var(--muted); }
+
+/* ===== Acciones ===== */
+.tarea-actions button {
+  margin-left: 6px;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.btn-editar {
+  background: #1f2937;
+  color: var(--text);
+}
+.btn-editar:hover {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+.btn-eliminar {
+  background: #2c1515;
+  color: #ffb3b3;
+}
+.btn-eliminar:hover {
+  background: var(--danger);
+  color: #000;
+  box-shadow: 0 0 10px #ff8080;
+}
+
+/* ===== Filtros ===== */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.filtros button {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--card-border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.filtros button:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: var(--accent);
+}
+.filtros .active {
+  background: var(--accent);
+  color: #000;
+}
+
+/* ===== Checkbox ===== */
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+/* ===== Animaciones menores ===== */
+.fade-in { animation: fadeIn .25s ease-out both; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 640px) {
+  .app { padding: 14px; }
+  .tarea-form { flex-direction: column; align-items: stretch; }
+  .tarea-form button { width: 100%; }
+}
