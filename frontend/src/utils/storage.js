@@ -1,5 +1,3 @@
-// src/utils/storage.js
-
 const KEY = "lab11_tareas_v1";
 
 export function loadTareas() {
